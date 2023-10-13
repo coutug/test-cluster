@@ -12,7 +12,7 @@ metadata:
   namespace: weave-gitops
 spec:
   interval: 60m0s
-  url: https://helm.gitops.weave.works/
+  url: https://github.com/weaveworks/weave-gitops/tree/main/charts
   
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
@@ -24,7 +24,7 @@ spec:
   interval: 60m
   chart:
     spec:
-      chart: weave-gitops
+      chart: gitops-server
       version: "*"
       sourceRef:
         kind: HelmRepository
@@ -39,3 +39,8 @@ spec:
       limits:
         cpu: 1
         memory: 512Mi
+    service:
+      create: true
+      type: ClusterIP
+      port: 9001
+      nodePort: 32100
