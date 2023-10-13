@@ -4,4 +4,4 @@ resources:
   - priorities.yaml
   # - prometheus-operator.yaml
   # - traefik.yaml
-  # - weave-gitops.yaml
+  - weave-gitops.yaml
