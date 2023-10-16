@@ -36,8 +36,9 @@ spec:
       create: true
       username: admin
       passwordHash: "$2a$10$OMFLoP1rL2uOqtfcrfDuD.Y8gPTLmGCJ9yGd28vP53sBthGkKa5j2"
-    # service:
-    #   create: true
-    #   type: NodePort
-    #   port: 9001
-    #   nodePort: 30022
+    service:
+      create: true
+      type: NodePort
+      port: 9001
+      nodePort: 30022
+      annotations: {}
