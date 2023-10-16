@@ -18,10 +18,8 @@ spec:
   chart:
     spec:
       chart: traefik
-      version: "24.0.0"
+      version: "*"
       sourceRef:
         kind: HelmRepository
         name: traefik
       interval: 12h
-  values:
-    
