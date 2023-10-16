@@ -24,6 +24,7 @@ spec:
         name: traefik
       interval: 12h
   values:
-    additionalArguments: "--providers.kubernetesingress.ingressendpoint.ip=192.168.49.2"
+    additionalArguments: 
+      - "--providers.kubernetesingress.ingressendpoint.ip=192.168.49.2"
     service:
       type: NodePort
