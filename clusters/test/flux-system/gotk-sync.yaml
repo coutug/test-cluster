@@ -8,10 +8,10 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: main
+    branch: master
   secretRef:
     name: flux-system
-  url: ssh://git@github.com/eosnationftw/k8s-cluster
+  url: ssh://git@github.com/coutug/test-cluster
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
