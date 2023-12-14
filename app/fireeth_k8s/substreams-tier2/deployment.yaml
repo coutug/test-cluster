@@ -9,6 +9,8 @@ spec:
   replicas: 1
   template:
     metadata:
+      annotations:
+        reloader.stakater.com/auto: "true"
       labels:
         app: substreams-tier2
     spec:
