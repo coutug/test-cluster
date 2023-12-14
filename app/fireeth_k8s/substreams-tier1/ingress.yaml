@@ -1,0 +1,14 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: substreams-tier1
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`goerli-substreams.mar.eosn.io`)
+      kind: Rule
+      services:
+        - name: substreams-tier1
+          port: 9000
