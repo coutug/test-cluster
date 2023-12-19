@@ -1,0 +1,13 @@
+mk start -p cilium-test \
+--nodes 2 \
+--cpus=2 \
+--memory=2g \
+--disk-size=20g \
+--bootstrapper=kubeadm \
+--extra-config=kubelet.authentication-token-webhook=true \
+--extra-config=kubelet.authorization-mode=Webhook \
+--extra-config=scheduler.bind-address=0.0.0.0 \
+--extra-config=controller-manager.bind-address=0.0.0.0 \
+--extra-config=etcd.listen-metrics-urls=http://0.0.0.0:2382 \
+--network-plugin=cni \
+--cni=false
