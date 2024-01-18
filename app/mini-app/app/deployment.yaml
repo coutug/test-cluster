@@ -22,27 +22,27 @@ spec:
     spec:
       containers:
       - name: mini-app
-        image: ghcr.io/coutug/mini-app:0.0.1 # {"$imagepolicy": "flux-system:mini-app"}
+        image: ghcr.io/coutug/mini-app:0.0.4 # {"$imagepolicy": "flux-system:mini-app"}
         ports:
         - containerPort: 8000
-        # resources:
-        #   requests:
-        #     memory: "128Mi"
-        #     cpu: "250m"
-        #   limits:
-        #     memory: "256Mi"
-        #     cpu: "500m"
-        # env:
-        # - name: ENV_VAR1
-        #   value: "valeur1"
-        # - name: ENV_VAR2
-        #   valueFrom:
-        #     configMapKeyRef:
-        #       name: ma-config-map
-        #       key: cle-config
-        # volumeMounts:
-        # - name: mon-volume
-        #   mountPath: /chemin/dans/conteneur
+          # resources:
+          #   requests:
+          #     memory: "128Mi"
+          #     cpu: "250m"
+          #   limits:
+          #     memory: "256Mi"
+          #     cpu: "500m"
+          # env:
+          # - name: ENV_VAR1
+          #   value: "valeur1"
+          # - name: ENV_VAR2
+          #   valueFrom:
+          #     configMapKeyRef:
+          #       name: ma-config-map
+          #       key: cle-config
+          # volumeMounts:
+          # - name: mon-volume
+          #   mountPath: /chemin/dans/conteneur
       # volumes:
       # - name: mon-volume
       #   configMap:
