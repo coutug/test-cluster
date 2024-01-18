@@ -43,7 +43,7 @@ spec:
         # volumeMounts:
         # - name: mon-volume
         #   mountPath: /chemin/dans/conteneur
-      volumes:
-      - name: mon-volume
-        configMap:
-          name: ma-config-map
+      # volumes:
+      # - name: mon-volume
+      #   configMap:
+      #     name: ma-config-map
