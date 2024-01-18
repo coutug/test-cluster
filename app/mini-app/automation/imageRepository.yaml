@@ -1,0 +1,8 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: mini-app
+  namespace: flux-system
+spec:
+  image: ghcr.io/coutug/mini-app
+  interval: 5m
