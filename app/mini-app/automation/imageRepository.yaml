@@ -5,4 +5,4 @@ metadata:
   namespace: flux-system
 spec:
   image: ghcr.io/coutug/mini-app
-  interval: 5m
+  interval: 1m
