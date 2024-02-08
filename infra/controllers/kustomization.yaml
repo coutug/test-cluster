@@ -5,9 +5,9 @@ sortOptions:
 resources:
   - weave.yaml # Flux dashboard
   - reloader.yaml # Reloader
-  - metallb.yaml # Load balancer
-  - ../configs/metallb/
-  - traefik.yaml # Ingress Traefik
+  # - metallb.yaml # Load balancer
+  # - ../configs/metallb/
+  # - traefik.yaml # Ingress Traefik
   # - cubefs.yaml
 
   # - loki-stack.yaml               # Logs (non-distributed)
