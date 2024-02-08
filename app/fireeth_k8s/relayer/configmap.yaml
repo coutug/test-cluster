@@ -1,0 +1,17 @@
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: relayer-config
+data:
+  config.yaml: |
+    start:
+      args:
+      - relayer
+      flags:
+        log-to-file: false
+        data-dir: "/var/lib/firehose"
+        relayer-source: "reader-svc.sf-ethereum.svc.cluster.local:10010"
+        relayer-grpc-listen-addr: ":10014"
+        metrics-listen-addr: ":9102"
+        relayer-max-source-latency: 1h

@@ -1,0 +1,14 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: lighthouse-p2p
+  namespace: sf-ethereum
+spec:
+  entryPoints:
+    - p2p
+  routes:
+    - match: PathPrefix(`/`)
+      kind: Rule
+      services:
+        - name: lighthouse-service
+          port: 9000

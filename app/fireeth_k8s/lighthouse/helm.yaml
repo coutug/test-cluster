@@ -1,0 +1,42 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: lighthouse-repo
+  namespace: sf-ethereum
+spec:
+  interval: 5m
+  url: https://graphops.github.io/launchpad-charts
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: lighthouse-release
+  namespace: sf-ethereum
+  annotations:
+    helm.fluxcd.io/uninstall: "true"
+spec:
+  chart:
+    spec:
+      chart: lighthouse
+      version: 0.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: lighthouse-repo
+  interval: 5m
+  values:
+    prometheus:
+      serviceMonitors:
+        enabled: true
+    grafana:
+      dashboards: true
+    lighthouse:
+      executionClientUrl: http://reader-svc.sf-ethereum.svc.cluster.local:8551
+      jwt:
+        existingSecret:
+          name: jwt
+          key: jwt.hex
+      volumeClaimSpec:
+        storageClassName: openebs-kernel-nfs
+      extraArgs:
+        - "--checkpoint-sync-url=https://sync-mainnet.beaconcha.in"

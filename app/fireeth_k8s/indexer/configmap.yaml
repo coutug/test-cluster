@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: indexer-config
+data:
+  config.yaml: |
+    start:
+      args:
+      - index-builder
+      flags:
+        log-verbosity: 0
+        log-to-file: false
+        data-dir: "/var/lib/firehose"
+        common-live-blocks-addr: "eth-relayer:10014"
+        index-builder-grpc-listen-addr: ":10009"
+        index-builder-index-size: "1000"
+        metrics-listen-addr: ":9102"

@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: relayer
+spec:
+  selector:
+    matchLabels:
+      app: relayer
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: relayer
+    spec:
+      containers:
+      - name: relayer
+        image: fireeth
+        args:
+          - "start"
+          - "-c"
+          - "/config/config.yaml"
+        ports:
+          - name: grpc
+            containerPort: 10014
+            protocol: TCP
+          - name: prom
+            containerPort: 9102
+            protocol: TCP
+        volumeMounts:
+            - name: config-volume
+              mountPath: /config
+            - mountPath: "/var/lib/firehose"
+              name: firehose-volume
+            - mountPath: "/var/lib/geth"
+              name: firehose-volume
+      volumes:
+        - name: config-volume
+          configMap:
+            name: relayer-config
+        - name: firehose-volume
+          persistentVolumeClaim:
+            claimName: firehose-volume-claim

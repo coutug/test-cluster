@@ -1,0 +1,37 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: openebs-nfs
+  namespace: flux-system
+spec:
+  interval: 6h
+  url: https://openebs.github.io/dynamic-nfs-provisioner
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: openebs-nfs
+  namespace: flux-system
+  annotations:
+    helm.fluxcd.io/uninstall: "true"
+spec:
+  interval: 6h
+  chart:
+    spec:
+      chart: nfs-provisioner
+      version: "0.11.0"
+      sourceRef:
+        kind: HelmRepository
+        name: openebs-nfs
+  targetNamespace: openebs
+  install:
+    createNamespace: true
+  values:
+    nfsStorageClass:
+      name: openebs-kernel-nfs
+      enabled: true
+      reclaimPolicy: Delete
+      nfsServerType: kernel
+      isDefaultClass: false
+      backendStorageClass: "mayastor-ext4"

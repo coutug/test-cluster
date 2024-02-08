@@ -1,0 +1,8 @@
+apiVersion: "openebs.io/v1beta1"
+kind: DiskPool
+metadata:
+  name: pool-1-on-dom84
+  namespace: mayastor
+spec:
+  node: dom84
+  disks: ["/dev/disk/by-id/nvme-MZXLR15THALA-000H3_S6C3NA0TB01308"]

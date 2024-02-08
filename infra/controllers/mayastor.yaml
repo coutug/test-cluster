@@ -1,0 +1,48 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: mayastor
+  namespace: flux-system
+spec:
+  interval: 6h
+  url: https://openebs.github.io/mayastor-extensions
+
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: mayastor
+  namespace: flux-system
+  annotations:
+    helm.fluxcd.io/uninstall: true
+spec:
+  interval: 6h
+  chart:
+    spec:
+      chart: mayastor
+      version: "2.5" # Replace with the desired version of Mayastor
+      sourceRef:
+        kind: HelmRepository
+        name: mayastor
+  targetNamespace: mayastor
+  install:
+    createNamespace: true
+  values:
+    csi:
+      node:
+        kubeletDir: /var/lib/k0s/kubelet
+    etcd:
+      shareProcessNamespace: true
+      initialClusterState: "existing"
+    io_engine:
+      resources:
+        limits:
+          cpu: "2"
+          memory: "1Gi"
+          hugepages2Mi: "2Gi"
+        requests:
+          cpu: "2"
+          memory: "1Gi"
+          hugepages2Mi: "2Gi"
+

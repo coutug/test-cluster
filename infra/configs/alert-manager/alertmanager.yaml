@@ -1,0 +1,91 @@
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: alertmanager-discord
+#spec:
+#  selector:
+#    matchLabels:
+#      app: alertmanager-discord
+#  replicas: 1
+#  template:
+#    metadata:
+#      labels:
+#        app: alertmanager-discord
+#    spec:
+#      containers:
+#      - name: alertmanager-discord
+#        image: benjojo/alertmanager-discord
+#        resources:
+#          limits:
+#            memory: "128Mi"
+#            cpu: "500m"
+#        ports:
+#        - containerPort: 9094
+#        env:
+#          - name: DISCORD_WEBHOOK
+#            value: 'https://discord.com/api/webhooks/1192245901138341908/X9h2p7vX970xqGHlaxEQZfvMw1D6bDGhwqIbY6016mgYzhHcd_usurPFTMrYTGajfEAL'
+#---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: alertmanager-discord
+#spec:
+#  selector:
+#    app: alertmanager-discord
+#  ports:
+#  - port: 9094
+#    targetPort: 9094
+#  type: ClusterIP
+
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: alert-manager-config
+  labels:
+    alertmanagerConfig: alert-manager-config
+spec:
+  route:
+    groupBy: ['job']
+    groupWait: 30s
+    groupInterval: 5m
+    repeatInterval: 12h
+    receiver: 'alerts'
+    routes:
+      - matchers:
+          - name: alertname
+            value: "InfoInhibitor|Watchdog"
+            matchType: =~
+        receiver: 'null'
+        continue: false
+  inhibitRules:
+    - sourceMatch:
+        - name: severity
+          value: "critical"
+      targetMatch:
+        - name: severity
+          value: "warning|info"
+          matchType: =~
+      equal:
+        - namespace
+        - alertname
+    - sourceMatch:
+        - name: severity
+          value: "warning"
+      targetMatch:
+        - name: severity
+          value: "info"
+      equal:
+        - namespace
+        - alertname
+  receivers:
+    - name: 'alerts'
+#      webhookConfigs:
+#        - url: 'http://alertmanager-discord:9094'
+#          sendResolved: true
+      pagerdutyConfigs:
+        - routingKey:
+            name: pagerduty-secret
+            key: key
+          sendResolved: true
+    - name: 'null'

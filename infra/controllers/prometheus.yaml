@@ -1,0 +1,141 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: prometheus
+  namespace: flux-system
+spec:
+  interval: 6h
+  url: https://prometheus-community.github.io/helm-charts
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: prometheus
+  namespace: flux-system
+  annotations:
+    helm.fluxcd.io/uninstall: true
+spec:
+  interval: 6h
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      version: "55.0.0"
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus
+  targetNamespace: monitoring
+  install:
+    createNamespace: true
+
+  values: 
+    kubeControllerManager:
+      enabled: false
+      # enabled: true
+      # service:
+      #   enabled: true
+      #   ipFamilyPolicy: SingleStack
+      #   ipFamilies:
+      #     - IPv4
+      # serviceMonitor:
+      #   https: true
+      #   insecureSkipVerify: "true"
+    kubeScheduler:
+      enabled: false
+      # enabled: true
+      # service:
+      #   enabled: true
+      #   ipFamilyPolicy: SingleStack
+      #   ipFamilies:
+      #     - IPv4
+      # serviceMonitor:
+      #   https: true
+      #   insecureSkipVerify: "true"
+    kubeProxy:
+      enabled: false
+    kubeEtcd:
+      enabled: true
+      service:
+        enabled: true
+        ipFamilyPolicy: SingleStack
+        ipFamilies:
+          - IPv4
+        port: 2381
+        targetPort: 2381
+      serviceMonitor:
+        https: true
+        insecureSkipVerify: "true"
+
+    prometheus:
+      enabled: true
+      prometheusSpec:
+        ruleSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
+        podMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
+        ruleNamespaceSelector: {}
+        
+    prometheus-node-exporter:
+      service:
+        portName: http-metrics
+        port: 9020
+    
+    alertmanager:
+      alertmanagerSpec:
+        alertmanagerConfiguration:
+          name: alert-manager-config
+          replicas: 3
+            
+    grafana:
+      grafana.ini:
+        server:
+          # root_url: "%(protocol)s://%(domain)s:/grafana"
+          root_url: "http://172.22.126.201/grafana"
+      admin:
+        existingSecret: grafana-admin
+      persistence:
+        enabled: true
+        storageClassName: "openebs-hostpath"
+        accessModes:
+          - ReadWriteOnce
+        size: 50Gi
+      additionalDataSources:
+        - name: Loki
+          type: loki
+          uid: Loki
+          access: proxy
+          url: http://monitoring-loki:3100
+          correlations:
+          - targetUID: Tempo
+            label: "Tempo traces"
+            description: "Related traces stored in Tempo"
+          jsonData:
+            derivedFields:
+              - name: "traceID"
+                matcherRegex: "trace_id=(\\w+)"
+                url: "$${__value.raw}"
+                datasourceUid: Tempo
+        - name: Tempo
+          type: tempo
+          uid: Tempo
+          access: proxy
+          url: http://monitoring-tempo:3100
+          jsonData:
+            httpMethod: GET
+            tracesToLogs:
+              datasourceUid: 'Loki'
+              tags: ['k8s.pod.name']
+              mappedTags: [{ key: 'k8s.pod.name', value: 'k8s_pod_name' }]
+              mapTagNamesEnabled: true
+              spanStartTimeShift: '-1h'
+              spanEndTimeShift: '1h'
+              filterByTraceID: true
+              filterBySpanID: false
+            serviceMap:
+              datasourceUid: 'Prometheus'
+            search:
+              hide: false
+            nodeGraph:
+              enabled: true
+            lokiSearch:
+              datasourceUid: 'Loki'

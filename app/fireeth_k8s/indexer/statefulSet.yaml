@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: indexer
+spec:
+  selector:
+    matchLabels:
+      app: indexer
+  serviceName: indexer
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: indexer
+    spec:
+      containers:
+        - name: indexer
+          image: fireeth
+          args:
+            - "start"
+            - "-c"
+            - "/config/config.yaml"
+          ports:
+            - name: grpc-healthz
+              containerPort: 10009
+              protocol: TCP
+            - name: prom
+              containerPort: 9102
+              protocol: TCP
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+            - mountPath: "/var/lib/firehose"
+              name: firehose-volume
+      volumes:
+        - name: config-volume
+          configMap:
+            name: indexer-config
+        - name: firehose-volume
+          persistentVolumeClaim:
+            claimName: firehose-volume-claim
+

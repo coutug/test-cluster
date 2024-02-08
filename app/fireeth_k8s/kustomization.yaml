@@ -1,0 +1,19 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - setup
+  # - reader-node
+  # - merger
+  # - relayer
+  # - indexer
+  # - firehose
+  # - lighthouse
+  # - seaweedfs
+  # - substreams-tier1
+  # - substreams-tier2
+
+images:
+  - name: fireeth
+    newName: ghcr.io/streamingfast/firehose-ethereum
+    newTag: v2.2.2-geth-v1.13.10-fh2.4-1

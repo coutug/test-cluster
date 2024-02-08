@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: firehose
+  labels:
+    app: firehose
+spec:
+  serviceName: firehose
+  selector:
+    matchLabels:
+      app: firehose
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: firehose
+    spec:
+      containers:
+        - name: firehose
+          image: fireeth
+          args:
+            - "start"
+            - "-c"
+            - "/config/config.yaml"
+          ports:
+            - name: live-blocks
+              containerPort: 10014
+              protocol: TCP
+            - name: grpc
+              containerPort: 10015
+              protocol: TCP
+            - name: prom
+              containerPort: 9102
+              protocol: TCP
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+            - mountPath: "/var/lib/firehose"
+              name: firehose-volume
+            - mountPath: "/var/lib/geth"
+              name: firehose-volume
+            - name: jwt-secret-volume
+              mountPath: /var/lib/jwt
+              readOnly: true
+      volumes:
+        - name: config-volume
+          configMap:
+            name: firehose-config
+        - name: jwt-secret-volume
+          secret:
+             secretName: jwt
+        - name: firehose-volume
+          persistentVolumeClaim:
+            claimName: firehose-volume-claim
+

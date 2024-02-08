@@ -1,0 +1,19 @@
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: reader-config
+data:
+  config.yaml: |
+    start:
+      args:
+      - reader-node
+      flags:
+        log-verbosity: 0
+        log-to-file: false
+        data-dir: "/var/lib/firehose"
+        reader-node-data-dir: "/var/lib/geth"
+        reader-node-grpc-listen-addr: ":10010"
+        reader-node-manager-api-addr: ":10011"
+        reader-node-arguments: "--mainnet --datadir=/var/lib/geth --ipcpath=/var/lib/firehose/reader/ipc --http --http.api=eth,net,web3 --authrpc.port=8551 --authrpc.addr=0.0.0.0 --authrpc.vhosts=* --authrpc.jwtsecret=/var/lib/jwt/jwt.hex --http.port=8545 --http.addr=0.0.0.0 --http.vhosts=* --cache=8192 --firehose-enabled"
+        metrics-listen-addr: ":9102"

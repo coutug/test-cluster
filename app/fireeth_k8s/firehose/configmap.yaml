@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: firehose-config
+data:
+  config.yaml: |
+    start:
+      args:
+      - firehose
+      flags:
+        log-verbosity: 0
+        data-dir: "/var/lib/firehose"
+        metrics-listen-addr: ":9102"
+        firehose-grpc-listen-addr: ":10015"
+        common-live-blocks-addr: ":10014"
+        common-system-shutdown-signal-delay: 10s
+        common-index-block-sizes: 10000
+        firehose-rate-limit-bucket-size: 20
+        firehose-rate-limit-bucket-fill-rate: 1s

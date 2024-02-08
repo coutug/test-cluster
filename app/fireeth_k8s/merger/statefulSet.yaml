@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: merger
+spec:
+  selector:
+    matchLabels:
+      app: merger
+  serviceName: merger
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: merger
+    spec:
+      containers:
+        - name: merger
+          image: fireeth
+          args:
+            - "start"
+            - "-c"
+            - "/config/config.yaml"
+          ports:
+            - name: grpc
+              containerPort: 10012
+              protocol: TCP
+            - name: prom
+              containerPort: 9102
+              protocol: TCP
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+            - mountPath: "/var/lib/firehose"
+              name: firehose-volume
+      volumes:
+        - name: config-volume
+          configMap:
+            name: merger-config
+        - name: firehose-volume
+          persistentVolumeClaim:
+            claimName: firehose-volume-claim

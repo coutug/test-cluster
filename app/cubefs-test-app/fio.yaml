@@ -1,0 +1,20 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: fio
+spec:
+  nodeSelector:
+    component.cubefs.io/csi: enabled
+  volumes:
+    - name: cfs-volume
+      persistentVolumeClaim:
+        claimName: cfs-volume-claim
+  containers:
+    - name: fio
+      image: nixery.dev/shell/fio
+      args:
+        - sleep
+        - "1000000"
+      volumeMounts:
+        - mountPath: "/volume"
+          name: cfs-volume

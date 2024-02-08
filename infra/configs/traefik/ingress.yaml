@@ -1,0 +1,14 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: healthcheck-route
+  namespace: traefik
+spec:
+  entryPoints:
+    - web
+  routes:
+  - match: Path(`/ping`)
+    kind: Rule
+    services:
+    - name: traefik-traefik
+      port: 80

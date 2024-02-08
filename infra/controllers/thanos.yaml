@@ -1,0 +1,58 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: thanos
+  namespace: flux-system
+spec:
+  interval: 6h
+  url: oci://registry-1.docker.io/bitnamicharts
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: thanos
+  namespace: flux-system
+  annotations:
+    helm.fluxcd.io/uninstall: true
+spec:
+  interval: 6h
+  chart:
+    spec:
+      chart: thanos
+      version: "12.23.0"
+      sourceRef:
+        kind: HelmRepository
+        name: thanos
+  targetNamespace: monitoring
+  install:
+    createNamespace: true
+  values:
+    query:
+      replicaCount: 2
+      dnsDiscovery:
+        sidecarsService: "prometheus-operated"
+        sidecarsNamespace: "monitoring"
+      replicaLabel:
+        - prometheus_replica
+    queryFrontend:
+      enabled: true
+      replicaCount: 2
+    compactor:
+      enabled: true
+      persistence:
+        enabled: true
+      retentionResolutionRaw: 30d
+      retentionResolution5m: 30d
+      retentionResolution1h: 10y
+    storegateway:
+      enabled: true
+      replicaCount: 2
+      persistence:
+        enabled: true
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+    prometheusRule:
+      enabled: true

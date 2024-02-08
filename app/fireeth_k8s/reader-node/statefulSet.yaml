@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: reader-node
+spec:
+  selector:
+    matchLabels:
+      app: reader-node
+  serviceName: reader-node
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: reader-node
+    spec:
+      containers:
+      - name: reader-node
+        image: fireeth
+        args:
+          - "start"
+          - "-c"
+          - "/config/config.yaml"
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/usr/local/bin/eth-maintenance"]
+        ports:
+          - name: grpc
+            containerPort: 10010
+            protocol: TCP
+          - name: node-mgr
+            containerPort: 10011
+            protocol: TCP
+          - name: geth-auth
+            containerPort: 8551
+            protocol: TCP
+          - name: peer-tcp
+            containerPort: 30303
+            protocol: TCP
+          - name: prom
+            containerPort: 9102
+            protocol: TCP
+        volumeMounts:
+          - name: config-volume
+            mountPath: /config
+          - name: firehose-volume
+            mountPath: "/var/lib/firehose"
+          - name: firehose-volume
+            mountPath: "/var/lib/geth"
+          - name: jwt-secret-volume
+            mountPath: /var/lib/jwt
+            readOnly: true
+      volumes:
+        - name: config-volume
+          configMap:
+            name: reader-config
+        - name: jwt-secret-volume
+          secret:
+             secretName: jwt
+        - name: firehose-volume
+          persistentVolumeClaim:
+            claimName: firehose-volume-claim

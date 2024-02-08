@@ -1,0 +1,14 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: geth-p2p
+  namespace: sf-ethereum
+spec:
+  entryPoints:
+    - p2p
+  routes:
+    - match: PathPrefix(`/`)
+      kind: Rule
+      services:
+        - name: reader-svc
+          port: 30303
