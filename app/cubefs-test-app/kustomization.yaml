@@ -4,5 +4,5 @@ namespace: fio
 resources:
   - namespace.yaml
   # - pvc.yaml
-  - fio.yaml
+  # - fio.yaml
   # - deployment.yaml
