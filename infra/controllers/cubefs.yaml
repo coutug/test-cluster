@@ -24,12 +24,10 @@ spec:
       chart: ./cubefs
       sourceRef:
         kind: GitRepository
-        name: cubefs-repo
-  valuesFile: "cubefs.yaml"
+        name: cubefs
   targetNamespace: cubefs
   install:
     createNamespace: true
-
   values:
     csi:
       kubeletPath: /var/lib/k0s/kubelet
