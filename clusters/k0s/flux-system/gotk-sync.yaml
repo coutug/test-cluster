@@ -8,10 +8,10 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: main
+    branch: test/cubefs-helm
   secretRef:
     name: flux-system
-  url: https://github.com/eosnationftw/k0s-cluster.git
+  url: ssh://git@github.com/coutug/test-cluster
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
