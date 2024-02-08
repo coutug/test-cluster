@@ -14,7 +14,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: cubefs
-  namespace: cubefs
+  namespace: flux-system
   annotations:
     helm.fluxcd.io/uninstall: true
 spec:
