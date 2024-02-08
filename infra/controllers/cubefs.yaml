@@ -29,13 +29,7 @@ spec:
   install:
     createNamespace: true
   values:
-    csi:
-      kubeletPath: /var/lib/k0s/kubelet
-    master:
-      replicas: 1
-    objectnode:
-      replicas: 1
-    blobstore:_clustermgr:
-      replicas: 1
-    blobstore_scheduler:
-      replicas: 1
+    image:
+      server: cubefs/cfs-server:v3.3.0
+      client: cubefs/cfs-client:v3.3.0
+      blobstore: cubefs/blobstore:3.3.0
