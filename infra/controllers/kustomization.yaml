@@ -8,7 +8,7 @@ resources:
   - metallb.yaml # Load balancer
   - ../configs/metallb/
   - traefik.yaml # Ingress Traefik
-  - cubefs.yaml
+  # - cubefs.yaml
 
   # - loki-stack.yaml               # Logs (non-distributed)
   # - loki.yaml                     # Logs (distributed)
