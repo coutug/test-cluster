@@ -6,13 +6,14 @@
   "assignees": ["coutug"],
   "customManagers": [
     {
+      "customType": "regex",
       "description": "Update chart version",
       "fileMatch": ["^charts/.*/Chart\\.yaml$"],
       "matchStrings": [
         "version: '?(?<currentValue>[^ '\\n]+)'?",
         "appVersion: '?(?<currentValue>[^ '\\n]+)'?"
       ],
-      "depNameTemplate": "{{depName}}",
+      "depNameTemplate": "ghcr.io/coutug/mini-app",
       "datasourceTemplate": "docker"
     }
   ],
