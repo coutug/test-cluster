@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  mini-app:
+  - apiVersion: v2
+    appVersion: v1.0.2
+    created: "2024-03-25T19:38:31.966334437Z"
+    description: Mini-app for testing
+    digest: f4ef83cf227c472f38a9e62cc701f3d5aa9e63952e4cf4961f7c7a2967807160
+    name: mini-app
+    type: application
+    urls:
+    - https://github.com/coutug/test-cluster/releases/download/mini-app-0.0.1/mini-app-0.0.1.tgz
+    version: 0.0.1
+generated: "2024-03-25T19:38:31.966345197Z"
