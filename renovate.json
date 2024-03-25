@@ -15,6 +15,7 @@
         "appVersion: '(?<currentValue>.*?)'\\s+",
         "version: '(?<currentValue>.*?)'\\s+"
       ],
+      "depNameTemplate": "renovate/renovate",
       "datasourceTemplate": "docker"
     }
   ]
