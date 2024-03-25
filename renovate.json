@@ -5,16 +5,14 @@
   ],
   "baseBranches": ["test/helm-renovate"],
   "assignees": ["coutug"],
-  "customManagers":
-  [
+  "enabledManagers": ["helm-values", "helmv3", "regex"],
+  "regexManagers": [
     {
-      "description": "Update renovate docker image references",
-      "fileMatch": ["^charts\\/Chart\\.yaml$"],
+      "datasourceTemplate": "docker",
+      "fileMatch": ["^charts/.*/Chart\\.yaml$"],
       "matchStrings": [
-        "appVersion: '(?<currentValue>.*?)'\\s+",
-        "version: '(?<currentValue>.*?)'\\s+"
-      ],
-      "datasourceTemplate": "docker"
+        "#\\s?renovate: image=(?<depName>.*?)\\s?appVersion:\\s?\\\"?(?<currentValue>[\\w+\\.\\-]*)\""
+      ]
     }
   ]
 }
