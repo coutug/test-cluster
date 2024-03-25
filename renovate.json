@@ -8,8 +8,8 @@
   "customManagers": [
     {
       "customType": "regex",
-      "description": "Update renovate docker image references",
-      "fileMatch": ["^charts\\/renovate\\/Chart\\.yaml$"],
+      "description": "Update docker image references",
+      "fileMatch": ["^charts\\/mini-app\\/Chart\\.yaml$"],
       "matchStrings": [
         "appVersion: '(?<currentValue>.*?)'\\s+",
         "version: '(?<currentValue>.*?)'\\s+"
