@@ -8,7 +8,6 @@
   "regexManagers":
   [
     {
-      "commitMessageTopic": "helm chart {{depName}}",
       "fileMatch": [
         "(^|/)Chart\\.ya?ml$"
       ],
