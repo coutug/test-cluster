@@ -1,8 +1,5 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
-  ],
   "assignees": ["coutug"],
   "flux": {
     "fileMatch": ["app/*.yaml"],
@@ -29,7 +26,7 @@
     },
     {
       "matchDatasources": ["helm"],
-      "matchPackageNames": ["https://coutug.github.io/test-cluster/mini-app"]
+      "registryUrls": ["https://coutug.github.io/test-cluster"]
     }
   ]
 }
