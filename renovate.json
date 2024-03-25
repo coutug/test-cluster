@@ -11,7 +11,7 @@
     {
       "customType": "regex",
       "description": "Update chart version",
-      "fileMatch": ["^charts/mini-app/Chart.yaml$", "(^|/)Chart\\.ya?ml$"],
+      "fileMatch": ["(^|/)Chart\\.ya?ml$"],
       "matchStrings": [
         "version: '?(?<currentValue>[^ '\\n]+)'?",
         "appVersion: '?(?<currentValue>[^ '\\n]+)'?"
@@ -25,10 +25,6 @@
       "matchDatasources": ["docker"],
       "matchPackageNames": ["ghcr.io/coutug/mini-app"],
       "registryUrls": ["ghcr.io"]
-    },
-    {
-      "matchDatasources": ["helm"],
-      "registryUrls": ["https://coutug.github.io/test-cluster"]
     }
   ]
 }
