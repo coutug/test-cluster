@@ -8,7 +8,7 @@
     {
       "customType": "regex",
       "description": "Update chart version",
-      "fileMatch": ["^charts/.*/Chart\\.yaml$"],
+      "fileMatch": ["^charts/mini-app/Chart.yaml$", "(^|/)Chart\\.ya?ml$"],
       "matchStrings": [
         "version: '?(?<currentValue>[^ '\\n]+)'?",
         "appVersion: '?(?<currentValue>[^ '\\n]+)'?"
