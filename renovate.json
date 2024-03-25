@@ -14,5 +14,11 @@
         "version: '(?<currentValue>.*?)'\\s+"
       ]
     }
+  ],
+  "packageRules": [
+    {
+      "matchPackageNames": ["coutug/mini-app"],
+      "allowedVersions": "*"
+    }
   ]
 }
