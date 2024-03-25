@@ -6,7 +6,6 @@
   "assignees": ["coutug"],
   "customManagers": [
     {
-      "name": "helm-chart",
       "customType": "regex",
       "description": "Update chart version",
       "fileMatch": ["^charts/.*/Chart\\.yaml$"],
