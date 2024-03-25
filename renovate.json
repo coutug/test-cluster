@@ -5,16 +5,18 @@
   ],
   "baseBranches": ["test/helm-renovate"],
   "assignees": ["coutug"],
-  "customManagers":
+  "regexManagers":
   [
     {
-      "registryAliases": {
-        "stable": "https://charts.helm.sh/stable"
-      },
       "commitMessageTopic": "helm chart {{depName}}",
       "fileMatch": [
         "(^|/)Chart\\.ya?ml$"
-      ]
+      ],
+      "matchStrings": [
+        "appVersion: '(?<currentValue>.*?)'\\s+",
+        "version: '(?<currentValue>.*?)'\\s+"
+      ],
+      "datasourceTemplate": "docker"
     }
   ]
 }
