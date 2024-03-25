@@ -4,7 +4,16 @@
     "config:recommended"
   ],
   "assignees": ["coutug"],
-  "enabledManagers": ["helm-values", "helmv3", "regex"],
+  "helmv3":{
+    "registryAliases": {
+      "stable": "https://charts.helm.sh/stable"
+    },
+    "commitMessageTopic": "helm chart {{depName}}",
+    "fileMatch": [
+      "(^|/)Chart\\.ya?ml$",
+      "charts/mini-app/Chart.yaml"
+    ]
+  },
   "customManagers": [
     {
       "customType": "regex",
