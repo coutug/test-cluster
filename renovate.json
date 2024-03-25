@@ -2,5 +2,19 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
+  ],
+  "baseBranches": ["test/helm-renovate"],
+  "assignees": ["coutug"],
+  "customManagers":
+  [
+    {
+      "registryAliases": {
+        "stable": "https://charts.helm.sh/stable"
+      },
+      "commitMessageTopic": "helm chart {{depName}}",
+      "fileMatch": [
+        "(^|/)Chart\\.ya?ml$"
+      ]
+    }
   ]
 }
