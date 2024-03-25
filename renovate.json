@@ -22,8 +22,7 @@
     {
       "matchPackageNames": ["ghcr.io/coutug/mini-app"],
       "registryUrls": ["ghcr.io"],
-      "packageNames": ["ghcr.io/coutug/mini-app"],
-      "updateTypes": ["patch", "minor", "major"]
+      "packageNames": ["ghcr.io/coutug/mini-app"]
     }
   ]
 }
