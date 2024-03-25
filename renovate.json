@@ -5,20 +5,17 @@
   ],
   "assignees": ["coutug"],
   "enabledManagers": ["helm-values", "helmv3", "regex"],
-  "regexManagers": [
+  "customManagers": [
     {
-      "datasourceTemplate": "docker",
-      "fileMatch": ["^charts/.*/Chart\\.yaml$"],
+      "customType": "regex",
+      "description": "Update renovate docker image references",
+      "fileMatch": ["^charts\\/renovate\\/Chart\\.yaml$"],
       "matchStrings": [
         "appVersion: '(?<currentValue>.*?)'\\s+",
         "version: '(?<currentValue>.*?)'\\s+"
-      ]
-    }
-  ],
-  "packageRules": [
-    {
-      "matchPackageNames": ["coutug/mini-app"],
-      "allowedVersions": "*"
+      ],
+      "depNameTemplate": "ghcr.io/coutug/mini-app",
+      "datasourceTemplate": "docker"
     }
   ]
 }
