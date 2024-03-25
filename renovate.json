@@ -6,7 +6,6 @@
   "assignees": ["coutug"],
   "customManagers": [
     {
-      "customType": "regex",
       "description": "Update chart version",
       "fileMatch": ["^charts/.*/Chart\\.yaml$"],
       "matchStrings": [
@@ -20,8 +19,7 @@
   "packageRules": [
     {
       "matchPackageNames": ["ghcr.io/coutug/mini-app"],
-      "registryUrls": ["ghcr.io"],
-      "packageNames": ["ghcr.io/coutug/mini-app"]
+      "registryUrls": ["ghcr.io"]
     }
   ]
 }
