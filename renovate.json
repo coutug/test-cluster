@@ -4,24 +4,26 @@
     "config:recommended"
   ],
   "assignees": ["coutug"],
-  "helmv3":{
-    "registryAliases": {
-      "stable": "https://charts.helm.sh/stable"
-    },
-    "commitMessageTopic": "helm chart {{depName}}",
-    "fileMatch": [
-      "(^|/)Chart\\.ya?ml$",
-      "charts/mini-app/Chart.yaml"
-    ]
-  },
   "customManagers": [
     {
+      "name": "helm-chart",
       "customType": "regex",
-      "description": "Update docker image references",
-      "fileMatch": ["(^|/)Chart\\.ya?ml$"],
-      "matchStrings": ["(?:image|name): (?<depName>.*?):(?<currentValue>.*?)\\s+"],
-      "depNameTemplate": "ghcr.io/coutug/mini-app",
+      "description": "Update chart version",
+      "fileMatch": ["^charts/.*/Chart\\.yaml$"],
+      "matchStrings": [
+        "version: '?(?<currentValue>[^ '\\n]+)'?",
+        "appVersion: '?(?<currentValue>[^ '\\n]+)'?"
+      ],
+      "depNameTemplate": "{{depName}}",
       "datasourceTemplate": "docker"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchPackageNames": ["ghcr.io/coutug/mini-app"],
+      "registryUrls": ["ghcr.io"],
+      "packageNames": ["ghcr.io/coutug/mini-app"],
+      "updateTypes": ["patch", "minor", "major"]
     }
   ]
 }
