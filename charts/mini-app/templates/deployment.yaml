@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "mini-app.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "mini-app.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "mini-app.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "mini-app.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image }}:{{ .Values.tag | default .Chart.AppVersion }}"
+          envFrom:
+          - configMapRef:
+              name: env
+            
+          ports:
+            - name: http
+              containerPort: {{ .Values.env.port }}
+              protocol: TCP
