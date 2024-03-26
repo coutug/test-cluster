@@ -1,5 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "allowPostUpgradeCommandTemplating": true,
+  "allowedPostUpgradeCommands": ["^.*"],
   "extends": [
     "config:recommended"
   ],
@@ -24,7 +26,14 @@
     {
       "matchDatasources": ["docker"],
       "matchPackageNames": ["ghcr.io/coutug/mini-app"],
-      "registryUrls": ["ghcr.io"]
+      "registryUrls": ["ghcr.io"],
+      "postUpgradeTasks": {
+        "commands": [
+          "bash scripts/bump-chart-version.sh '{{{parentDir}}}' '{{{isMajor}}}' '{{{isMinor}}}' '{{{isPatch}}}'"
+        ],
+        "fileFilters": ["**/Chart.yaml"],
+        "executionMode": "branch"
+      }
     },
     {
       "matchManagers": ["flux"],
