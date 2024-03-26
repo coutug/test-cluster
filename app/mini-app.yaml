@@ -1,3 +1,13 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: mini-app
+  namespace: flux-system
+spec:
+  interval: 2m
+  url: https://coutug.github.io/test-cluster/
+---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -10,31 +20,11 @@ spec:
   interval: 6h
   chart:
     spec:
-      chart: substreams-sink
-      version: "1.0.5"
+      chart: mini-app
+      version: 1.0.1
       sourceRef:
         kind: HelmRepository
-        name: helm-repo
+        name: mini-app
   targetNamespace: mini-app
   install:
     createNamespace: true
-  values:
-    image: ghcr.io/coutug/mini-app
-    tag: 1.0.0
-    args: ["run"]
-    sinkType: "prometheus-substivity"
-    chain: "eos"
-    env:
-      substreams_endpoint: "https://eos.substreams.pinax.network:443"
-      manifest: "https://github.com/pinax-network/subtivity-substreams/releases/download/v0.5.0/subtivity-antelope-v0.5.0.spkg"
-      module_name: "prom_out"
-      hostname: 0.0.0.0
-      port: 9102
-      verbose: true
-      cursor_file: "/cursor/cursor.lock"
-      production_mode: true
-    secretName: token-secret
-    service:
-      type: ClusterIP
-    cursorPvc:
-      enabled: true
