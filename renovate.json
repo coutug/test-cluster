@@ -1,7 +1,5 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "allowPostUpgradeCommandTemplating": true,
-  "allowedPostUpgradeCommands": ["^.*"],
   "extends": [
     "config:recommended"
   ],
@@ -15,7 +13,6 @@
       "description": "Update chart version",
       "fileMatch": ["^charts/mini-app/Chart.yaml$", "(^|/)Chart\\.ya?ml$"],
       "matchStrings": [
-        "version: '?(?<currentValue>[^ '\\n]+)'?",
         "appVersion: '?(?<currentValue>[^ '\\n]+)'?"
       ],
       "depNameTemplate": "ghcr.io/coutug/mini-app",
@@ -39,5 +36,7 @@
       "matchManagers": ["flux"],
       "matchPackageNames": ["mini-app"]
     }
-  ]
+  ],
+  "allowPostUpgradeCommandTemplating": true,
+  "allowedPostUpgradeCommands": ["^.*"]
 }
