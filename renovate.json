@@ -1,17 +1,17 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
   "assignees": ["coutug"],
   "flux": {
-    "fileMatch": ["app/*.yaml"]
-  },
-  "helm-values": {
     "fileMatch": ["app/*.yaml"]
   },
   "customManagers": [
     {
       "customType": "regex",
       "description": "Update chart version",
-      "fileMatch": ["(^|/)Chart\\.ya?ml$"],
+      "fileMatch": ["^charts/mini-app/Chart.yaml$", "(^|/)Chart\\.ya?ml$"],
       "matchStrings": [
         "version: '?(?<currentValue>[^ '\\n]+)'?",
         "appVersion: '?(?<currentValue>[^ '\\n]+)'?"
@@ -22,12 +22,13 @@
   ],
   "packageRules": [
     {
-      "matchPackageNames": ["mini-app"]
-    },
-    {
       "matchDatasources": ["docker"],
       "matchPackageNames": ["ghcr.io/coutug/mini-app"],
       "registryUrls": ["ghcr.io"]
+    },
+    {
+      "matchManagers": ["flux"],
+      "matchPackageNames": ["mini-app"]
     }
   ]
 }
