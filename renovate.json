@@ -3,7 +3,7 @@
   "extends": [
     "config:recommended"
   ],
-  "ignorePaths": [".github/workflows/*.yaml"],
+  "ignorePaths": [".github/workflows/*.yaml", "clusters\\/.*\\.yaml"],
   "assignees": ["coutug"],
   "flux": {
     "fileMatch": ["app/*.yaml"]
