@@ -3,6 +3,16 @@ entries:
   mini-app:
   - apiVersion: v2
     appVersion: v1.0.2
+    created: "2024-03-27T15:14:48.816029754Z"
+    description: Mini-app for testing
+    digest: 1be454bb9c19d043dd0764c92d379602b97c6557ef69115cd53d8d999c098dac
+    name: mini-app
+    type: application
+    urls:
+    - https://github.com/coutug/test-cluster/releases/download/mini-app-1.0.3/mini-app-1.0.3.tgz
+    version: 1.0.3
+  - apiVersion: v2
+    appVersion: v1.0.2
     created: "2024-03-25T20:29:07.063762147Z"
     description: Mini-app for testing
     digest: 270ed51c50223b63af725e101d0a701cd9dc803e10806a8444c51073492d04a2
@@ -21,4 +31,4 @@ entries:
     urls:
     - https://github.com/coutug/test-cluster/releases/download/mini-app-0.0.1/mini-app-0.0.1.tgz
     version: 0.0.1
-generated: "2024-03-25T20:29:07.063772086Z"
+generated: "2024-03-27T15:14:48.816041616Z"
