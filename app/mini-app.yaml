@@ -21,7 +21,7 @@ spec:
   chart:
     spec:
       chart: mini-app
-      version: 1.0.4
+      version: 1.0.6
       sourceRef:
         kind: HelmRepository
         name: mini-app
