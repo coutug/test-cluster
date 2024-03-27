@@ -9,7 +9,7 @@
     "fileMatch": ["app/*.yaml"]
   },
   "helm-values": {
-    "fileMatch": ["app/*.yaml"]
+    "fileMatch": ["charts\\/.*\\.yaml"]
   },
   "customManagers": [
     {
