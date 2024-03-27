@@ -3,6 +3,7 @@
   "extends": [
     "config:recommended"
   ],
+  "excludeCommitPaths": [".github/**"],
   "assignees": ["coutug"],
   "flux": {
     "fileMatch": ["app/*.yaml"]
@@ -23,20 +24,11 @@
     {
       "matchDatasources": ["docker"],
       "matchPackageNames": ["ghcr.io/coutug/mini-app"],
-      "registryUrls": ["ghcr.io"],
-      "postUpgradeTasks": {
-        "commands": [
-          "bash scripts/bump-chart-version.sh '{{{parentDir}}}' '{{{isMajor}}}' '{{{isMinor}}}' '{{{isPatch}}}'"
-        ],
-        "fileFilters": ["**/Chart.yaml"],
-        "executionMode": "branch"
-      }
+      "registryUrls": ["ghcr.io"]
     },
     {
       "matchManagers": ["flux"],
       "matchPackageNames": ["mini-app"]
     }
-  ],
-  "allowPostUpgradeCommandTemplating": true,
-  "allowedPostUpgradeCommands": ["^.*"]
+  ]
 }
