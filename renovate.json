@@ -3,9 +3,12 @@
   "extends": [
     "config:recommended"
   ],
-  "excludeCommitPaths": [".github/**"],
+  "excludeCommitPaths": [".github/workflows/*.yaml"],
   "assignees": ["coutug"],
   "flux": {
+    "fileMatch": ["app/*.yaml"]
+  },
+  "helm-values": {
     "fileMatch": ["app/*.yaml"]
   },
   "customManagers": [
