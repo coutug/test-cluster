@@ -5,7 +5,11 @@ metadata:
   namespace: flux-system
 spec:
   imageRepositoryRef:
-    name: mini-app
+    name:mini-app
+  filterTags:
+    pattern: "^dev-(?P<ts>.*)"
+    extract: '$ts'
   policy:
     semver:
-      range: ">=0.0.1"
+      numerical: 
+        order: asc
