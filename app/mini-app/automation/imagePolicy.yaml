@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   imageRepositoryRef:
-    name:mini-app
+    name: mini-app
   filterTags:
     pattern: "^dev-(?P<ts>.*)"
     extract: '$ts'
