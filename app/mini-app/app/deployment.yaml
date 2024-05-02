@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: mini-app
-        image: ghcr.io/coutug/mini-app:0.0.5 # {"$imagepolicy": "flux-system:mini-app"}
+        image: ghcr.io/coutug/mini-app:v1.0.11 # {"$imagepolicy": "flux-system:mini-app"}
         ports:
         - containerPort: 8000
           # resources:
