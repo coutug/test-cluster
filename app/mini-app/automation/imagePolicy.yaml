@@ -10,6 +10,5 @@ spec:
     pattern: "^dev-(?P<ts>.*)"
     extract: '$ts'
   policy:
-    semver:
-      numerical: 
-        order: asc
+    numerical: 
+      order: asc
