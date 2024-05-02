@@ -11,14 +11,14 @@ spec:
   git:
     checkout:
       ref:
-        branch: develop-tag
+        branch: test/develop-tag
     commit:
       author:
         email: fluxcdbot@users.noreply.github.com
         name: fluxcdbot
       messageTemplate: '{{range .Updated.Images}}{{println .}}{{end}}'
     push:
-      branch: develop-tag
+      branch: test/develop-tag
   update:
     path: ./app/mini-app/app
     strategy: Setters
